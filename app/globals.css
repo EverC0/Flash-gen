@@ -3,4 +3,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family:'Proxima Nova', Courier, monospace, sans-serif;
+}
+
+body {
+  font-family: inherit;
 }

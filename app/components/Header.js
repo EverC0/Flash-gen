@@ -5,6 +5,8 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+// import '/Users/evercampos/Flash-Card/styles';
+
 
 
 const Header = () => {
@@ -26,8 +28,8 @@ const Header = () => {
     return (
         <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" style={{flexGrow: 1}}> 
-            Flashcard Saas 
+          <Typography variant="h6" fontFamily='inherit' style={{flexGrow: 1, }}> 
+        myFlash
             </Typography>
 
             <Button color='inherit' onClick={() => handleNavigation('/')}>

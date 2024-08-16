@@ -1,5 +1,6 @@
 'use client'
-
+// import { updateUserMetadata,  } from '@clerk/nextjs';
+// const { user } = useUser(); // Get user data
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import {getStripe} from "@/utils/get-stripe"
@@ -26,7 +27,9 @@ const ResultPage = () => {
                     `/api/checkout_session?session_id=${session_id}`)
                 const sessionData = await res.json()
                 if(res.ok){
-                    setSession(sessionData)
+                    setSession(sessionData);
+                    
+                    
                 }else{
                     setError(sessionData.error)
                 }

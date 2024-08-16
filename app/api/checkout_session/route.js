@@ -45,6 +45,7 @@ export async function POST(req){
             quantity: 1,
           },
         ],
+        // redirects to result page
         success_url: `${req.headers.get('origin')}/result?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.get('origin')}/result?session_id={CHECKOUT_SESSION_ID}`,
       }

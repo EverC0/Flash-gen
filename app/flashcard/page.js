@@ -73,7 +73,7 @@ export default function Flashcard(){
                                                     perspective: '1000px', // Creates the 3D space for the flip effect
                                                     position: 'relative', // Positions the box relative to its container
                                                     width: '100%',
-                                                    height: '200px',
+                                                    height: '300px',
                                                     '& > div': {
                                                         transition: 'transform 0.6s', // Smooth transition for the flip
                                                         transformStyle: 'preserve-3d', // Allows 3D transformation

@@ -2,21 +2,26 @@
 import Image from "next/image";
 import getStripe from "@/utils/get-stripe";
 import { Container, AppBar, Toolbar, Typography, Button, Box, Grid, Divider } from "@mui/material";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton , useUser} from "@clerk/nextjs";
 import Head from "next/head";
 import { useRouter } from 'next/navigation';
 
 
 export default function Home() {
   const router = useRouter()
+  const {isLoaded, isSignedIn, user} = useUser()
 
 
   const handleNav = (e) => {
     router.push(e)
   }
-  
 
   const handleSubmit = async () =>{
+
+    if (!isSignedIn && !isLoaded) {
+      router.push('/sign-in'); // Redirect to your sign-in page
+      return false; // Render nothing while redirecting
+    }
 
     const checkoutSession = await fetch('api/checkout_session', {
 
@@ -61,7 +66,7 @@ export default function Home() {
           mx:'auto',
 
         }}>
-        <Typography variant = "h2" gutterBottom>Welcome to flashcards Saas</Typography>
+        <Typography variant = "h2" gutterBottom>Welcome to myFlash ai</Typography>
         <Typography variant = "h5" gutterBottom>
           {' '}
           The easist way to make a flashcards from your text
@@ -75,7 +80,7 @@ export default function Home() {
           component='h2' 
           textAlign={'center'} 
           margin={3} 
-          color='#696969'
+          color='inherit'
           gutterBottom
           >
           Feature
@@ -130,14 +135,20 @@ export default function Home() {
                         }}>
                           
                         <Typography variant="h5" sx={{ textAlign: 'center' }} gutterBottom>Basic</Typography>
-                        <Typography variant="h6" sx={{ textAlign: 'center' }} gutterBottom>$5 / month</Typography>
-
-                        <Typography sx={{ textAlign: 'center',  flexGrow: 1 }} >
-                          Access to basic flashcard features and limited storage access
+                        {/* <Typography variant="h6" sx={{ textAlign: 'center' }} gutterBottom>$5 / month</Typography> */}
+                        <Typography variant="h6"  gutterBottom>
+                            Limited Flashcard Creation
                         </Typography>
-                        <Button variant="contained" color='primary' sx={{mt:1, width:'10rem', alignSelf:'center'}}> 
+                        <Typography variant="body1" gutterBottom>
+                            Users can create and store up to <strong>8 flashcards</strong> per session. This limitation encourages users to upgrade to the paid plan for unlimited flashcard creation.
+                        </Typography>
+
+            
+                       
+
+                        {/* <Button variant="contained" color='primary' sx={{mt:1, width:'10rem', alignSelf:'center'}}> 
                           Choose Basic
-                        </Button>
+                        </Button> */}
                     </Box>
 
                   {/* <Divider orientation="vertical" flexItem sx={{ position: 'absolute', right: '-2px', top: 0, height: '100%', borderRightWidth:'3px' }} /> */}

@@ -150,7 +150,7 @@ export default function Generate(){
                 mt:4, mb:6, display: 'flex', flexDirection: 'column', alignItems:'center'
             }}> 
 
-                <Typography variant="h4"> Generate Flashcards </Typography>
+                <Typography variant="h4" > Generate Flashcards </Typography>
                 <Paper sx={{p:4, width: '100%'}}>
                     <TextField value = {text}
                     onChange={(e) => setText(e.target.value)}
@@ -173,6 +173,16 @@ export default function Generate(){
                         Submit
                     </Button>
                 </Paper>
+
+                <Button 
+                    variant = "contained"
+                    color='primary'
+                    onClick={() => router.push('/flashcards')}
+                    sx={{mt:3}}
+                    >
+                        {' '}
+                        Flashcards
+                    </Button>
             </Box>
 
 
@@ -185,7 +195,13 @@ export default function Generate(){
                     flashcards.length > 0 && (
                         <Box sx = {{my:4}}>
 
-                        <Typography variant= "h5"> Flashcards preview</Typography>
+                        <Typography variant= "h5" margin={1} padding={2}  sx={{
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center', 
+                            textAlign: 'center',
+                            width: '100%', // Ensures it takes up full width of container
+                        }}> Flashcards preview</Typography>
                         <Grid container spacing={3}>
                             {flashcards.map((flashcard, index) => (
                             
@@ -200,7 +216,7 @@ export default function Generate(){
                                                         perspective: '1000px', // Creates the 3D space for the flip effect
                                                         position: 'relative', // Positions the box relative to its container
                                                         width: '100%',
-                                                        height: '200px',
+                                                        height: '300px',
                                                         '& > div': {
                                                             transition: 'transform 0.6s', // Smooth transition for the flip
                                                             transformStyle: 'preserve-3d', // Allows 3D transformation
@@ -282,6 +298,8 @@ export default function Generate(){
             </Dialog>
 
         </Container>
+
+
 
         
     )
