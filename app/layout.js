@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ctheme from './components/theme'
+import Script from 'next/script';
+
 // import "/Users/evercampos/Flash-Card/app/globals.css";
 
 
@@ -19,9 +21,24 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
-          
 
+      <Script
+        id='gtm'
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-NMTNGW25');`
+        }}
+      >
+        
+
+      </Script>
+
+        <body className={inter.className}>
+  
         <ThemeProvider theme={ctheme}>
           <CssBaseline /> 
           <Header/>

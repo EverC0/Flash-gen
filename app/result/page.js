@@ -1,5 +1,5 @@
 'use client'
-import { updateUserMetadata, useUser } from '@clerk/nextjs';
+import { clerkClient, useUser } from '@clerk/nextjs';
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import {getStripe} from "@/utils/get-stripe"
@@ -29,12 +29,13 @@ const ResultPage = () => {
                 if(res.ok){
                     setSession(sessionData);
                     if (sessionData.payment_status === "paid") {
-                        await updateUserMetadata(user.id, {
+                        await clerkClient.users.updateUser(user.id, {
                             publicMetadata: {
                                 isPaidUser: true,
                             },
                         });
                     }
+
                     
                 }else{
                     setError(sessionData.error)

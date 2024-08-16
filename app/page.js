@@ -27,7 +27,7 @@ export default function Home() {
 
         method: 'POST',
         headers:{
-          origin: "http://localhost:3000"
+          origin: window.location.origin
         },
     })
 
