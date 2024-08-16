@@ -1,6 +1,5 @@
 'use client'
-// import { updateUserMetadata,  } from '@clerk/nextjs';
-// const { user } = useUser(); // Get user data
+import { updateUserMetadata, useUser } from '@clerk/nextjs';
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import {getStripe} from "@/utils/get-stripe"
@@ -13,6 +12,7 @@ const ResultPage = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const session_id = searchParams.get('session_id')
+    const { user } = useUser(); // Get user data
 
     const [loading, setLoading] = useState(true)
     const [session, setSession] = useState(null)
@@ -28,7 +28,13 @@ const ResultPage = () => {
                 const sessionData = await res.json()
                 if(res.ok){
                     setSession(sessionData);
-                    
+                    if (sessionData.payment_status === "paid") {
+                        await updateUserMetadata(user.id, {
+                            publicMetadata: {
+                                isPaidUser: true,
+                            },
+                        });
+                    }
                     
                 }else{
                     setError(sessionData.error)
