@@ -61,7 +61,7 @@ export async function POST(req) {
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: data }
             ],
-            model: 'gpt-3.5-turbo', // Assuming 'gpt-4o' was a typo, it should be 'gpt-4'
+            model: 'gpt-4o-mini', // Assuming 'gpt-4o' was a typo, it should be 'gpt-4'
         });
 
         const flashcards = JSON.parse(completion.choices[0].message.content);
