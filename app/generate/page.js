@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs"
 import {db} from '@/firebase'
 import { collection, getDoc, writeBatch, doc, setDoc } from "firebase/firestore"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Container, Box , Typography, Paper, TextField, Button, Grid, Card, CardActionArea, CardContent, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, CircularProgress} from "@mui/material"
 
  //
@@ -34,9 +34,13 @@ export default function Generate(){
     const router = useRouter()
 
 
-    // Redirect to sign-in page if not signed in
-    if (!isSignedIn && !isLoaded) {
-        router.push('/sign-in'); // Redirect to your sign-in page
+    useEffect(() => {
+        if (!isSignedIn && isLoaded) {
+            router.push('/sign-in'); // Redirect to your sign-in page
+        }
+    }, [isSignedIn, isLoaded, router]);
+
+    if (!isSignedIn && isLoaded) {
         return null; // Render nothing while redirecting
     }
 

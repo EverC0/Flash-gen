@@ -5,6 +5,7 @@ import { Container, AppBar, Toolbar, Typography, Button, Box, Grid, Divider } fr
 import { SignedIn, SignedOut, UserButton , useUser} from "@clerk/nextjs";
 import Head from "next/head";
 import { useRouter } from 'next/navigation';
+// import { useEffect } from "react";
 
 
 export default function Home() {
@@ -18,10 +19,9 @@ export default function Home() {
 
   const handleSubmit = async () =>{
 
-    if (!isSignedIn && !isLoaded) {
-      router.push('/sign-in'); // Redirect to your sign-in page
-      return; // Render nothing while redirecting
-    }
+  if (!isSignedIn && isLoaded) {
+      return handleNav('/sign-up'); // Render nothing while redirecting
+  }
 
     const checkoutSession = await fetch('api/checkout_session', {
 
