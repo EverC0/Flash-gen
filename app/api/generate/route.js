@@ -35,6 +35,7 @@ export async function POST(req) {
         - Provide a seamless and intuitive user experience.
         - Encourage regular review sessions through reminders and progress tracking.
         - Support a wide range of subjects and learning styles.
+        - Provided input generate cards
         - Note: must max of two sentences
 
         Return in the following JSON format always:

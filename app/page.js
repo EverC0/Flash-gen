@@ -20,7 +20,7 @@ export default function Home() {
 
     if (!isSignedIn && !isLoaded) {
       router.push('/sign-in'); // Redirect to your sign-in page
-      return false; // Render nothing while redirecting
+      return; // Render nothing while redirecting
     }
 
     const checkoutSession = await fetch('api/checkout_session', {
