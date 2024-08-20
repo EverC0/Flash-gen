@@ -43,34 +43,24 @@ export default function Generate(){
     // This function is called when the user submits text to generate flashcards.
     // It sends a POST request to the api/generate endpoint with the text as the body and updates the flashcards state with the response data.
     const handleSubmit = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch('/api/generate', {
+        await setLoading(true)
+        // console.log(text)
+        try{
+            fetch('api/generate', {
                 method: 'POST',
-                body: JSON.stringify({ text }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to generate flashcards');
-            }
-    
-            const data = await response.json();
-            // const endTime = performance.now(); 
-            // console.log(`API request took ${(endTime - startTime) / 1000} seconds`);
-
-            setFlashcards(data);
-        } catch (error) {
-            console.error('Error generating flashcards:', error);
-        } finally {
-            setLoading(false);
-            // const endTime = performance.now(); 
-            // console.log(`API request took ${(endTime - startTime) / 1000} seconds`);
-            
-        }
-    };
+                body: text,
+            })
+            .then((res) => res.json())
+            .then((data) => setFlashcards(data))
+            .then(() => setLoading(false))
+            // await setLoading(false)
+            console.log(flashcards)
+        } catch (error){
+            console.log('error')
+            console.log(flashcards)
+        } 
+        // setLoading(false)
+    }
     // This function handles the flipping of flashcards when they are clicked. 
     const handlecardClick = (id) => {
         setFlipped((prev) => ({
