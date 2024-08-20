@@ -35,7 +35,7 @@ export default function Generate(){
 
 
     // Redirect to sign-in page if not signed in
-    if (!isSignedIn && isLoaded) {
+    if (!isSignedIn && !isLoaded) {
         router.push('/sign-in'); // Redirect to your sign-in page
         return null; // Render nothing while redirecting
     }
@@ -43,23 +43,34 @@ export default function Generate(){
     // This function is called when the user submits text to generate flashcards.
     // It sends a POST request to the api/generate endpoint with the text as the body and updates the flashcards state with the response data.
     const handleSubmit = async () => {
-        await setLoading(true)
-        // console.log(text)
-        try{
-            fetch('api/generate', {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/generate', {
                 method: 'POST',
-                body: text,
-            })
-            .then((res) => res.json())
-            .then((data) => setFlashcards(data))
-            .then(() => setLoading(false))
-            // await setLoading(false)
-            // console.log(flashcards)
-        } catch (error){
-            console.log('error')
-        } 
-        // setLoading(false)
-    }
+                body: JSON.stringify({ text }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to generate flashcards');
+            }
+    
+            const data = await response.json();
+            // const endTime = performance.now(); 
+            // console.log(`API request took ${(endTime - startTime) / 1000} seconds`);
+
+            setFlashcards(data);
+        } catch (error) {
+            console.error('Error generating flashcards:', error);
+        } finally {
+            setLoading(false);
+            // const endTime = performance.now(); 
+            // console.log(`API request took ${(endTime - startTime) / 1000} seconds`);
+            
+        }
+    };
     // This function handles the flipping of flashcards when they are clicked. 
     const handlecardClick = (id) => {
         setFlipped((prev) => ({

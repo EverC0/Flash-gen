@@ -12,11 +12,15 @@ export async function POST(req) {
 
     try {
         // Fetch the user object using the 
+        // const startTime = performance.now(); // Start timing
+
         const client = clerkClient();
         const user = await client.users.getUser(userId);
         const isPaidUser = user?.publicMetadata?.isPaidUser || false; // Check if the user is a paid user
         const maxFlashcards = isPaidUser ? 100 : 8; // Set the max number of flashcards based on user type
+        
 
+        // const startTime = performance.now();
         const systemPrompt = `
         you are a flashcard creator designed to help users learn and memorize concepts efficiently. 
         Your main objective is to generate flashcards based on the input provided by the user. 
@@ -35,7 +39,7 @@ export async function POST(req) {
         - Provide a seamless and intuitive user experience.
         - Encourage regular review sessions through reminders and progress tracking.
         - Support a wide range of subjects and learning styles.
-        - Provided input generate cards
+        - Provided input generate c
         - Note: must max of two sentences
 
         Return in the following JSON format always:
@@ -57,10 +61,12 @@ export async function POST(req) {
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: data }
             ],
-            model: 'gpt-4', // Assuming 'gpt-4o' was a typo, it should be 'gpt-4'
+            model: 'gpt-3.5-turbo', // Assuming 'gpt-4o' was a typo, it should be 'gpt-4'
         });
 
         const flashcards = JSON.parse(completion.choices[0].message.content);
+        // const endTime = performance.now(); 
+        // console.log(`API chat request took ${(endTime - startTime) / 1000} seconds`);
 
         return NextResponse.json(flashcards.flashcards);
     } catch (error) {
