@@ -17,7 +17,7 @@ export async function POST(req) {
         const client = clerkClient();
         const user = await client.users.getUser(userId);
         const isPaidUser = user?.publicMetadata?.isPaidUser || false; // Check if the user is a paid user
-        const maxFlashcards = isPaidUser ? 100 : 8; // Set the max number of flashcards based on user type
+        const maxFlashcards = 1000; // Set the max number of flashcards based on user type
         
 
         // const startTime = performance.now();
